@@ -19,7 +19,7 @@ public class RoomAdventure { // Main class containing game logic
         for (int i = 0; i < exitDirections.length; i++) { // Loop through directions
             if (noun.equals(exitDirections[i])) { // If user direction matches
                 currentRoom = exitDestinations[i]; // Change current room
-                status = "Changed Room"; // Update status
+                status = "You enter " + currentRoom.getName(); // Update status
             }
         }
     }
@@ -84,6 +84,10 @@ public class RoomAdventure { // Main class containing game logic
 
         currentRoom = room1; // Start game in Room 1
     }
+
+    private static void printSeparator() {
+        System.out.print("\n" + "=".repeat(40));
+    }
     
     @SuppressWarnings("java:S2189")
     public static void main(String[] args) { // Entry point of the program
@@ -96,6 +100,8 @@ public class RoomAdventure { // Main class containing game logic
             for (String item : inventory) {
                 System.out.print(item + " ");
             }
+
+            printSeparator(); // Prints the separator between the player status and player input
 
             System.out.println("\nWhat would you like to do? "); // Prompt user for next action
 
@@ -110,6 +116,8 @@ public class RoomAdventure { // Main class containing game logic
 
             String verb = words[0]; // First word is the action verb
             String noun = words[1]; // Second word is the target noun
+
+            System.out.println(); // Prints a blank line to separate the status message from the player's input by 1 line
 
             switch (verb) { // Decide which action to take
                 case "go": // If verb is 'go'
@@ -180,6 +188,10 @@ class Room { // Represents a game room
 
     public String[] getGrabbables() { // Getter for grabbable items
         return grabbables;
+    }
+
+    public String getName() { // Getter for name
+        return name;
     }
 
     @Override
