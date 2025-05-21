@@ -12,7 +12,7 @@ public class RoomAdventure { // Main class containing game logic
 
     // constants
     final private static String DEFAULT_STATUS =
-        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'take', 'use'.";
+        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'take', 'use', 'quit', 'drop'.";
 
     public static void main(String[] args) { // Entry point of the game
         showTitleScreen();             // Display title and wait for 'start'
@@ -55,6 +55,9 @@ public class RoomAdventure { // Main class containing game logic
                         break;
                     case "use":
                         handleUse(noun);
+                        break;
+                    case "drop":
+                        handleDrop(noun);
                         break;
                     default:
                         status = DEFAULT_STATUS;
@@ -158,6 +161,39 @@ public class RoomAdventure { // Main class containing game logic
             }
         }
     }
+
+    private static void handleDrop(String noun) {
+        if (!inventory.contains(noun)) {
+            status = "You don't have that item to drop.";
+            return;
+        }
+
+        // Remove from inventory
+        inventory.remove(noun);
+
+        // Add item back to the room's grabbables
+        String[] newGrabbables = Arrays.copyOf(currentRoom.getGrabbables(), currentRoom.getGrabbables().length + 1);
+        newGrabbables[newGrabbables.length - 1] = noun;
+        currentRoom.setGrabbables(newGrabbables);
+
+        // Add item back to the room's visible items
+        String[] currentItems = currentRoom.getItems();
+        boolean alreadyPresent = false;
+        for (String item : currentItems) {
+            if (item.equals(noun)) {
+                alreadyPresent = true;
+                break;
+            }
+        }
+        if (!alreadyPresent) {
+            String[] newItems = Arrays.copyOf(currentItems, currentItems.length + 1);
+            newItems[newItems.length - 1] = noun;
+            currentRoom.setItems(newItems);
+        }
+
+        status = noun + " dropped.";
+}
+
 
     private static void handleUse(String noun) { // Handles using items
         if (!inventory.contains(noun)) {
