@@ -90,16 +90,14 @@ public class RoomAdventure { // Main class containing game logic
     }
     
     @SuppressWarnings("java:S2189")
-    public static void main(String[] args) { // Entry point of the program
+    public static void main(String[] args) throws InterruptedException { // Entry point of the program, (throws InterruptedException is used for Thread.sleep(time) to work)
         setupGame(); // Initialize rooms, items, and starting room
 
         while (true) { // Game loop, runs until program is terminated
             System.out.print(currentRoom.toString()); // Display current room description
             System.out.print("Inventory: "); // Prompt for inventory display
 
-            for (String item : inventory) {
-                System.out.print(item + " ");
-            }
+            System.out.print(String.join(", ", inventory));
 
             printSeparator(); // Prints the separator between the player status and player input
 
@@ -134,6 +132,7 @@ public class RoomAdventure { // Main class containing game logic
             }
 
             System.out.println(status); // Print the status message
+            Thread.sleep(1000); // Sleep for 1 second
         }
     }
 }
@@ -197,14 +196,8 @@ class Room { // Represents a game room
     @Override
     public String toString() { // Custom print for the room
         String result = "\nLocation: " + name; // Show room name
-        result += "\nYou See: "; // List items
-        for (String item : items) { // Loop items
-            result += item + " "; // Append each item
-        }
-        result += "\nExits: "; // List exits
-        for (String direction : exitDirections) { // Loop exits
-            result += direction + " "; // Append each direction
-        }
+        result += "\nYou See: " + String.join(", ", items); // appends visible items
+        result += "\nExits: " + String.join(", ", exitDirections); // appends exits within the current room
         return result + "\n"; // Return full description
     }
 }
