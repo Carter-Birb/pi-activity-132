@@ -12,8 +12,9 @@
 7. Added lots of items and grabbables 
 
 ### Cole:
-1. added quit funtionality
+1. Added "quit" function
 2. fixed how non 2-word inputs are handled
+3. Added "drop" function (accidentially called it quit in my commit)
 
 ### Carter:
 1. Added dynamic inventory size
