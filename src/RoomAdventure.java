@@ -33,20 +33,47 @@ public class RoomAdventure { // Main class containing game logic
             String input = s.nextLine().trim().toLowerCase();
             String[] words = input.split(" ");
 
-            if (words.length != 2) {
-                status = DEFAULT_STATUS;
-            } else {
+            if (words.length == 1) {
+                String verb = words[0];
+                if (verb.equals("quit")) {
+                    handleQuit();
+                } else {
+                    status = DEFAULT_STATUS;
+                }
+            } else if (words.length == 2) {
                 String verb = words[0];
                 String noun = words[1];
                 switch (verb) {
-                    case "go":    handleGo(noun);    break;
-                    case "look":  handleLook(noun);  break;
-                    case "take":  handleTake(noun);  break;
-                    case "use":   handleUse(noun);   break;
-                    default:       status = DEFAULT_STATUS;
+                    case "go":
+                        handleGo(noun);
+                        break;
+                    case "look":
+                        handleLook(noun);
+                        break;
+                    case "take":
+                        handleTake(noun);
+                        break;
+                    default:
+                        status = DEFAULT_STATUS;
                 }
+            } else {
+                status = DEFAULT_STATUS;
             }
+            
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // nothing
+            }
+
             System.out.println(status);
+            
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // nothing
+            }
+
         }
     }
 
@@ -153,6 +180,12 @@ public class RoomAdventure { // Main class containing game logic
                 status = "You can't use that.";
         }
     }
+
+    private static void handleQuit() {
+        System.out.println("Thank you for playing! Goodbye.");
+        System.exit(0); // Terminates the program successfully
+    }
+
 
     // Utility to remove a single element from a String[]
     private static String[] removeElement(String[] array, String elem) {
