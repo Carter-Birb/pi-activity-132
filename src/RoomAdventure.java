@@ -293,7 +293,7 @@ class Room {
         StringBuilder result = new StringBuilder();
         result.append("\nLocation: ").append(name);
         result.append("\nYou See: ");
-        for (String item : items) result.append(item).append(" ");
+        for (String item : items) result.append(item).append(", ");
         result.append("\nExits: ");
         for (String direction : exitDirections) result.append(direction).append(" ");
         return result.toString();
