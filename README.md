@@ -12,3 +12,4 @@
 
 ### Carter:
 1. Added dynamic inventory size
+2. Optimized output text for readibility and amount of lines of code
