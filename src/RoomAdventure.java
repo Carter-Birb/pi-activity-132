@@ -53,6 +53,9 @@ public class RoomAdventure { // Main class containing game logic
                     case "take":
                         handleTake(noun);
                         break;
+                    case "use":
+                        handleUse(noun);
+                        break;
                     default:
                         status = DEFAULT_STATUS;
                 }
