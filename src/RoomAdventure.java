@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class RoomAdventure {
+public class RoomAdventure { // Main class containing game logic
 
     // The current room the player is in
     private static Room currentRoom;
@@ -16,7 +16,7 @@ public class RoomAdventure {
     final private static String DEFAULT_STATUS =
         "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'take', 'use'.";
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException { // Entry point of the game
         showTitleScreen(); // Display game title screen and wait for user to type "start"
         setupGame();       // Initialize rooms, items, and connections
         Scanner s = new Scanner(System.in);
@@ -91,7 +91,7 @@ public class RoomAdventure {
         clearScreen();
     }
 
-    // Display game over screen and exit
+    // Shows a multi-line death screen with cause, waits for input, then exits
     private static void showDeathScreen(String cause) {
         System.out.println("\n☠☠☠ YOU DIED ☠☠☠");
         System.out.println("Cause of death: " + cause);
@@ -118,6 +118,7 @@ public class RoomAdventure {
         status = "I don't see that exit.";
         for (int i = 0; i < exitDirections.length; i++) {
             if (noun.equals(exitDirections[i])) {
+                // Check for deadly windows
                 if (exitDirections[i].equals("window")) {
                     showDeathScreen("You jumped through a deadly window!");
                 }
@@ -152,8 +153,8 @@ public class RoomAdventure {
                 }
                 inventory.add(noun);
                 status = noun + " added to inventory.";
-                currentRoom.setGrabbables(removeElement(currentRoom.getGrabbables(), noun));
-                currentRoom.setItems(removeElement(currentRoom.getItems(), noun));
+                currentRoom.setGrabbables(removeElement(currentRoom.getGrabbables(), noun)); // Removes Grabbable from the Room
+                currentRoom.setItems(removeElement(currentRoom.getItems(), noun)); // Removed Item from the Room
                 return;
             }
         }
@@ -208,13 +209,16 @@ public class RoomAdventure {
         Room r2F = new Room("Room 2F");
         Room r3F = new Room("Room 3F");
         Room r4F = new Room("Room 4F");
+        // Second floor rooms
         Room r1S = new Room("Room 1S");
         Room r2S = new Room("Room 2S");
         Room r3S = new Room("Room 3S");
         Room r4S = new Room("Room 4S");
+        // Attic
         Room attic = new Room("Attic");
 
         // Set exits for each room and link destinations
+        // First floor
         r1F.setExitDirections(new String[]{"east", "south"});
         r1F.setExitDestinations(new Room[]{r2F, r3F});
         r2F.setExitDirections(new String[]{"west", "south", "stairs"});
@@ -223,7 +227,7 @@ public class RoomAdventure {
         r3F.setExitDestinations(new Room[]{r1F, r4F, null});
         r4F.setExitDirections(new String[]{"north", "west"});
         r4F.setExitDestinations(new Room[]{r2F, r3F});
-
+        // Second floor
         r1S.setExitDirections(new String[]{"downstairs", "east"});
         r1S.setExitDestinations(new Room[]{r2F, r2S});
         r2S.setExitDirections(new String[]{"west", "south", "window"});
@@ -232,10 +236,12 @@ public class RoomAdventure {
         r3S.setExitDestinations(new Room[]{r4S, attic});
         r4S.setExitDirections(new String[]{"north", "east"});
         r4S.setExitDestinations(new Room[]{r2S, r3S});
+        // Attic
         attic.setExitDirections(new String[]{"down"});
         attic.setExitDestinations(new Room[]{r3S});
 
         // Set items and descriptions for each room
+        // First floor
         r1F.setItems(new String[]{"painting", "apple"});
         r1F.setItemDescriptions(new String[]{"An old painting of a landscape.", "A fresh red apple."});
         r2F.setItems(new String[]{"desk", "key"});
@@ -244,6 +250,7 @@ public class RoomAdventure {
         r3F.setItemDescriptions(new String[]{"A dusty rug with a floral pattern."});
         r4F.setItems(new String[]{"door"});
         r4F.setItemDescriptions(new String[]{"A sturdy door that appears locked."});
+        // Second floor
         r1S.setItems(new String[]{"bookshelf", "sandwich"});
         r1S.setItemDescriptions(new String[]{"Filled with old tomes.", "A half-eaten sandwich."});
         r2S.setItems(new String[]{"table"});
@@ -252,18 +259,22 @@ public class RoomAdventure {
         r3S.setItemDescriptions(new String[]{"A fragile chest.", "A shiny gold coin."});
         r4S.setItems(new String[]{"window seat"});
         r4S.setItemDescriptions(new String[]{"A cozy nook by the window."});
+        // Attic
         attic.setItems(new String[]{"floorboards", "spider"});
         attic.setItemDescriptions(new String[]{"They creak underfoot.", "A large, menacing spider."});
 
         // Set grabbable items in each room
+        // First floor
         r1F.setGrabbables(new String[]{"apple"});
         r2F.setGrabbables(new String[]{"key"});
         r3F.setGrabbables(new String[]{});
         r4F.setGrabbables(new String[]{});
+        // Second floor
         r1S.setGrabbables(new String[]{"sandwich"});
         r2S.setGrabbables(new String[]{});
         r3S.setGrabbables(new String[]{"coin"});
         r4S.setGrabbables(new String[]{});
+        // Attic
         attic.setGrabbables(new String[]{"spider"});
 
         // Set starting room
