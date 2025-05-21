@@ -76,7 +76,7 @@ public class RoomAdventure {
         }
     }
 
-    // Show game title screen and wait for "start"
+    // Shows simple ASCII title screen and wait for "start"
     private static void showTitleScreen() {
         System.out.println("====================================");
         System.out.println("===        ROOM ADVENTURE        ===");
