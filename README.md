@@ -3,8 +3,13 @@
 ## Changes:
 
 ### Edward:
-1.
-2.
+1. Added 2 rooms to first floor, 2nd floor with 4 rooms, and attic
+2. Added "use" function
+3. Added title screen
+4. Added death screen
+5. Switched to array list for inventory for scalable inventory
+6. Added functionality to remove items from room when added to inventory
+7. Added lots of items and grabbables 
 
 ### Cole:
 1.
