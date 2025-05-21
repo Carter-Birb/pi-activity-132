@@ -13,6 +13,7 @@
 ### Cole:
 1. added quit funtionality
 2. fixed how non 2-word inputs are handled
+3. added drop functionality
 
 ### Carter:
 1. Changed the inventory from String[] data type to List<String> using java.util.ArrayList to allow for a dynamic inventory size
