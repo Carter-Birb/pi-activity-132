@@ -1,17 +1,16 @@
 import java.util.Scanner; // Import Scanner for reading user input
+import java.util.ArrayList; // Import ArrayList for dynamic inventory
 
 public class RoomAdventure { // Main class containing game logic
 
     // class variables
     private static Room currentRoom; // The room the player is currently in
-    private static String[] inventory = {null, null, null, null, null}; // Player inventory slots
+    private static ArrayList<String> inventory = new ArrayList<>(); // Player inventory
     private static String status; // Message to display after each action
 
     // constants
     final private static String DEFAULT_STATUS =
         "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', and 'take'."; // Default error message
-
-
 
     private static void handleGo(String noun) { // Handles moving between rooms
         String[] exitDirections = currentRoom.getExitDirections(); // Get available directions
@@ -41,12 +40,11 @@ public class RoomAdventure { // Main class containing game logic
         status = "I can't grab that."; // Default if not grabbable
         for (String item : grabbables) { // Loop through grabbable items
             if (noun.equals(item)) { // If user-noun matches grabbable
-                for (int j = 0; j < inventory.length; j++) { // Find empty inventory slot
-                    if (inventory[j] == null) { // If slot is empty
-                        inventory[j] = noun; // Add item to inventory
-                        status = "Added it to the inventory"; // Update status
-                        break; // Exit inventory loop
-                    }
+                if (!inventory.contains(noun)) {
+                    inventory.add(noun);
+                    status = "Added it to the inventory";
+                } else {
+                    status = "You already have that item.";
                 }
             }
         }
@@ -95,8 +93,8 @@ public class RoomAdventure { // Main class containing game logic
             System.out.print(currentRoom.toString()); // Display current room description
             System.out.print("Inventory: "); // Prompt for inventory display
 
-            for (int i = 0; i < inventory.length; i++) { // Loop through inventory slots
-                System.out.print(inventory[i] + " "); // Print each inventory item
+            for (String item : inventory) {
+                System.out.print(item + " ");
             }
 
             System.out.println("\nWhat would you like to do? "); // Prompt user for next action
